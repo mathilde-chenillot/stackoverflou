@@ -77,10 +77,8 @@ exports.login = async (req, res) => {
                 data: req.body,
             });
         };
-
-        console.log(user);
-
-        res.redirect('/');
+        // res.status(200).json({ message: 'connexion réussie'})
+        res.redirect(200, '/');
 
     } catch(error) {
         res.status(500).send(error.message);
