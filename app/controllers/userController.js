@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const { then } = require('../../database');
 const User = require('../models/User');
 
 exports.signup = async (req, res) => {
@@ -46,9 +47,7 @@ exports.signup = async (req, res) => {
         
         res.status(201).json( { user });
 
-        res.redirect('/login');
-
-        console.log(req.body.email);
+        // res.redirect(201, '/login');
 
     } catch(error) {
         res.status(500).send(error.message);
