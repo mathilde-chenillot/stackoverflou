@@ -51,3 +51,16 @@ exports.modifyTopic = async (req, res) => {
         res.status(500).send(error.message);
     };
 };
+
+exports.deleteTopic = async (req, res) => {
+    try {
+
+        const { id } = req.params;
+        await Topic.findOne({ _id: id});
+        await Topic.deleteOne({ _id: id});
+        res.status(204).json();
+        
+    } catch (error) {
+        res.status(500).send(error.message);
+    };
+};

@@ -20,5 +20,6 @@ router.route('/topic')
 router.route('/topic/:id')
     .get(topicController.getOneTopic)
     .patch(topicController.modifyTopic)
+    .delete(topicController.deleteTopic);
     
 module.exports = router;
