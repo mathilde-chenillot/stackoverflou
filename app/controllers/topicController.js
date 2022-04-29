@@ -12,14 +12,11 @@ exports.getAllTopics = async (req, res) => {
 exports.getOneTopic = async (req, res) => {
     try {
 
-        const { id } = req.params;
-        const topic = await Topic.findOne({ _id: id });
+        const topic = await Topic.findOne({ _id: req.params.id });
         res.status(200).json(topic);
 
     } catch (error) {
         res.status(500).send(error.message);
-    } finally {
-        console.log('end one topic');
     };
 };
 
@@ -43,15 +40,14 @@ exports.modifyTopic = async (req, res) => {
     try {
         const { id } = req.params;
 
-        const topic = await Topic.updateOne({ id }, {
-            ...req.body, // id
+        const topic = await Topic.updateOne({ _id: id }, {
+            ...req.body,
+            _id: id,
         });
 
         res.status(201).json(topic);
         
     } catch (error) {
         res.status(500).send(error.message);
-    } finally {
-        console.log('end');
     };
 };
