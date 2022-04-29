@@ -17,5 +17,8 @@ router.route('/topic')
     .get(topicController.getAllTopics)
     .post(topicController.createTopic);
 
-
+router.route('/topic/:id')
+    .get(topicController.getOneTopic)
+    .patch(topicController.modifyTopic)
+    
 module.exports = router;
