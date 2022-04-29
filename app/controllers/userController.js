@@ -44,15 +44,13 @@ exports.signup = async (req, res) => {
             creationDate: new Date(),
         }).save();
         
-        res.status(201).json( { user });
+        res.status(201).json({ user });
 
         // res.redirect(201, '/login');
 
     } catch(error) {
         res.status(500).send(error.message);
-    } finally {
-        console.log('signup end');
-    }
+    };
 };
 
 exports.login = async (req, res) => {
@@ -81,7 +79,5 @@ exports.login = async (req, res) => {
 
     } catch(error) {
         res.status(500).send(error.message);
-    } finally {
-        console.log('login end !');
     };
 };

@@ -15,6 +15,7 @@ router.post('/user/login', userController.login);
 // topic
 router.route('/topic')
     .get(topicController.getAllTopics)
+    .post(topicController.createTopic);
 
 
 module.exports = router;
