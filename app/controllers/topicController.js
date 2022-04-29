@@ -42,7 +42,7 @@ exports.modifyTopic = async (req, res) => {
 
         const topic = await Topic.updateOne({ _id: id }, {
             ...req.body,
-            _id: id,
+            _id: id, // delete ?
         });
 
         res.status(201).json(topic);

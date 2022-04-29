@@ -28,3 +28,13 @@
 //     "description": "Che",
 //     "user_id": "626c1995324bbc3de6bdf458"
 // }
+
+// MESSAGE
+
+// post
+// http://localhost:3400/api/message
+// {
+//     "content": "mon contenu",
+//     "user_id": "626bfdd155b309283c49e81d",
+//     "topic_id": "626c355742d485f9367bbf6f"
+// }
