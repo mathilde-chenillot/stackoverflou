@@ -24,7 +24,6 @@ router.route('/topic/:id')
     .delete(topicController.deleteTopic);
 
 // message
-// topic
 router.route('/message')
     .get(messageController.getAllMessages)
     .post(messageController.createMessage);
@@ -32,5 +31,7 @@ router.route('/message')
 router.route('/message/:id')
     .patch(messageController.modifyMessage)
     .delete(messageController.deleteMessage);
+
+router.get('/message/byTopic/:topicId', messageController.getAllByTopic);
     
 module.exports = router;

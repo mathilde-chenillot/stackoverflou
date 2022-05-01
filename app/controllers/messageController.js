@@ -1,4 +1,5 @@
 const Message = require('../models/Message');
+const User = require('../models/User');
 
 exports.getAllMessages = async (req, res) => {
     try {
@@ -51,5 +52,29 @@ exports.deleteMessage = async (req, res) => {
         
     } catch (error) {
         res.status(500).send(error.message);
+    };
+};
+
+exports.getAllByTopic = async (req, res) => {
+    try {
+        const { topicId } = req.params;
+        const messages = await Message.find({ topic_id: topicId});
+        if (typeof messages.length !== "number") {
+            res.status(400).json({ message: 'Il n\y a pas de messages', error: messages});
+        };
+
+        const completeMessages = await Promise.all(messages.map(async (message) => {
+            const user = await User.findOne({ _id: message.user_id });
+            const messageObject = {...message.toObject(), nickname: user.nickname};
+            return messageObject;
+        }));
+
+        console.log(completeMessages);
+
+        res.status(200).json({ message: 'message by topic', messages: completeMessages})
+    } catch (error) {
+        res.status(500).send(error.message);
+    } finally {
+        console.log('end');
     };
 };
