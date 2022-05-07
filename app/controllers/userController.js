@@ -43,15 +43,12 @@ exports.signup = async (req, res) => {
             email: req.body.email.toLowerCase(),
             password: hashedPassword,
             creationDate: new Date(),
-        });
-        
-        const newUser = user.save();
+        }).save();
 
-        if (newUser) {
-            const token = jwt.signToken({ id: newUser.id});
+        if (user) {
+            const token = jwt.signToken({ email: user.email, id: user._id });
+            res.status(201).json({ user, token });
         };
-        
-        res.status(201).json({ user });
 
         // res.redirect(201, '/login');
 
@@ -76,8 +73,7 @@ exports.login = async (req, res) => {
         const validPassword = await bcrypt.compare(req.body.password, user.password); // 1e argument = mdp en clair, 2e = mdp en hash
 
         if (validPassword) {
-            const payload = { email: user.email, id: user._id }
-            const token = jwt.signToken(payload);
+            const token = jwt.signToken({ email: user.email, id: user._id });
             res.status(200).json({ token, user });
             // res.redirect(200, '/');
         } else {
