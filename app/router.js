@@ -2,6 +2,7 @@ const { Router } = require('express');
 const userController = require('./controllers/userController');
 const topicController = require('./controllers/topicController');
 const messageController = require('./controllers/messageController');
+const checkToken = require('./middlewares/checkToken');
 
 const router = Router();
 
@@ -15,23 +16,23 @@ router.post('/user/login', userController.login);
 
 // topic
 router.route('/topic')
-    .get(topicController.getAllTopics)
-    .post(topicController.createTopic);
+    .get(checkToken, topicController.getAllTopics)
+    .post(checkToken, topicController.createTopic);
 
 router.route('/topic/:id')
-    .get(topicController.getOneTopic)
-    .patch(topicController.modifyTopic)
-    .delete(topicController.deleteTopic);
+    .get(checkToken, topicController.getOneTopic)
+    .patch(checkToken, topicController.modifyTopic)
+    .delete(checkToken, topicController.deleteTopic);
 
 // message
 router.route('/message')
-    .get(messageController.getAllMessages)
-    .post(messageController.createMessage);
+    .get(checkToken, messageController.getAllMessages)
+    .post(checkToken, messageController.createMessage);
 
 router.route('/message/:id')
-    .patch(messageController.modifyMessage)
-    .delete(messageController.deleteMessage);
+    .patch(checkToken, messageController.modifyMessage)
+    .delete(checkToken, messageController.deleteMessage);
 
-router.get('/message/byTopic/:topicId', messageController.getAllByTopic);
+router.get('/message/byTopic/:topicId', checkToken, messageController.getAllByTopic);
     
 module.exports = router;

@@ -69,12 +69,8 @@ exports.getAllByTopic = async (req, res) => {
             return messageObject;
         }));
 
-        console.log(completeMessages);
-
         res.status(200).json({ message: 'message by topic', messages: completeMessages})
     } catch (error) {
         res.status(500).send(error.message);
-    } finally {
-        console.log('end');
     };
 };

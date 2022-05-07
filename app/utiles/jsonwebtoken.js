@@ -9,7 +9,7 @@ const jwtToken = {
     verifyToken: (token) => {
         try {
             return jwt.verify(token, process.env.JWT_SECRET);
-        } catch {
+        } catch (error) {
             throw error;
         }
     },

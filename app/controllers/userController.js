@@ -74,6 +74,7 @@ exports.login = async (req, res) => {
 
         if (validPassword) {
             const token = jwt.signToken({ email: user.email, id: user._id });
+
             res.status(200).json({ token, user });
             // res.redirect(200, '/');
         } else {
