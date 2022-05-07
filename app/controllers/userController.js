@@ -43,7 +43,13 @@ exports.signup = async (req, res) => {
             email: req.body.email.toLowerCase(),
             password: hashedPassword,
             creationDate: new Date(),
-        }).save();
+        });
+        
+        const newUser = user.save();
+
+        if (newUser) {
+            const token = jwt.signToken({ id: newUser.id});
+        };
         
         res.status(201).json({ user });
 
@@ -68,21 +74,18 @@ exports.login = async (req, res) => {
         };
 
         const validPassword = await bcrypt.compare(req.body.password, user.password); // 1e argument = mdp en clair, 2e = mdp en hash
-        
-        if(!validPassword) {
+
+        if (validPassword) {
+            const payload = { email: user.email, id: user._id }
+            const token = jwt.signToken(payload);
+            res.status(200).json({ token, user });
+            // res.redirect(200, '/');
+        } else {
             return res.status(401).json({
                 error: 'Mot de passe incorrect',
                 data: req.body,
             });
         };
-
-        if (validPassword) {
-            jwt.signToken({ id: user.id });
-        };
-
-        console.log(user.id);
-        
-        res.redirect(200, '/');
 
     } catch(error) {
         res.status(500).send(error.message);
