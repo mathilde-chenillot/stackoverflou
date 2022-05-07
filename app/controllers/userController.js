@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const jwt = require('../utiles/jsonwebtoken');
 const User = require('../models/User');
 
 exports.signup = async (req, res) => {
@@ -67,13 +68,19 @@ exports.login = async (req, res) => {
         };
 
         const validPassword = await bcrypt.compare(req.body.password, user.password); // 1e argument = mdp en clair, 2e = mdp en hash
-
+        
         if(!validPassword) {
             return res.status(401).json({
                 error: 'Mot de passe incorrect',
                 data: req.body,
             });
         };
+
+        if (validPassword) {
+            jwt.signToken({ id: user.id });
+        };
+
+        console.log(user.id);
         
         res.redirect(200, '/');
 
