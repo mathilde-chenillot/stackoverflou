@@ -43,7 +43,6 @@ const userController = {
                 nickname: req.body.nickname,
                 email: req.body.email.toLowerCase(),
                 password: hashedPassword,
-                creationDate: new Date(),
             }).save();
     
             if (user) {
