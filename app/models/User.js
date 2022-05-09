@@ -9,12 +9,12 @@ const userSchema = Schema({
     nickname: { type: String, required: true},
     email: { type: String, required: true, unique: true},
     password: { type: String, required: true},
-    creationDate: { type: Date, required: true},
-});
+},
+    { timestamps: true},
+);
 
 userSchema.plugin(uniqueValidator); // to have a unique mail in the database
 
 const User =  model('User', userSchema);
 
 export default User;
-// module.exports = model('User', userSchema);
