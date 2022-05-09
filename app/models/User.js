@@ -1,6 +1,7 @@
-const { Schema, model } = require('mongoose');
+import mongoose from 'mongoose';
+const { Schema, model } = mongoose;
 
-const uniqueValidator = require('mongoose-unique-validator');
+import uniqueValidator from 'mongoose-unique-validator';
 
 const userSchema = Schema({
     firstname: { type: String, required: true},
@@ -13,4 +14,7 @@ const userSchema = Schema({
 
 userSchema.plugin(uniqueValidator); // to have a unique mail in the database
 
-module.exports = model('User', userSchema);
+const User =  model('User', userSchema);
+
+export default User;
+// module.exports = model('User', userSchema);

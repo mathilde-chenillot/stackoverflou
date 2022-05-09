@@ -1,14 +1,14 @@
-const jwt = require('../utiles/jsonwebtoken');
+import jwtToken from '../utiles/jsonwebtoken.js';
 
-const User = require('../models/User');
+import User from '../models/User.js';
 
-module.exports = async (req, res, next) => {
+export const checkToken = async (req, res, next) => {
     
     try {
         const token = await req.headers.authorization.split(" ")[1]; // to just have the token without 'Bearer' word
         // console.log(req.headers.authorization); Bearer token
   
-        const decoded = jwt.verifyToken(token);
+        const decoded = jwtToken.verifyToken(token);
   
         req.user = await User.findById(decoded.id).select("-password"); // select("-password") is to remove the field password in the object, to protect it
 

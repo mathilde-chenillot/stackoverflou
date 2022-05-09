@@ -1,10 +1,14 @@
-const { Schema, model } = require('mongoose');
+import mongoose from 'mongoose';
+const { Schema, model } = mongoose;
 
 const topicSchema = Schema({
     title: { type: String, required: true},
     description: { type: String, required: true},
     user_id: { type: String, required: true},
-    creationDate: { type: Date, required: true},
-});
+},
+    { timestamps: true},
+);
 
-module.exports = model('Topic', topicSchema);
+const Topic = model('Topic', topicSchema);
+
+export default Topic;

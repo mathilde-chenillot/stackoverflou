@@ -1,8 +1,8 @@
-const { Router } = require('express');
-const userController = require('./controllers/userController');
-const topicController = require('./controllers/topicController');
-const messageController = require('./controllers/messageController');
-const checkToken = require('./middlewares/checkToken');
+import { Router } from 'express';
+import userController from './controllers/userController.js';
+import topicController from './controllers/topicController.js';
+import messageController from './controllers/messageController.js';
+import { checkToken } from './middlewares/checkToken.js';
 
 const router = Router();
 
@@ -35,4 +35,4 @@ router.route('/message/:id')
 
 router.get('/message/byTopic/:topicId', checkToken, messageController.getAllByTopic);
     
-module.exports = router;
+export default router;

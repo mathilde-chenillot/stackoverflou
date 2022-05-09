@@ -1,13 +1,15 @@
-require('dotenv').config();
+import dotenv from 'dotenv';
 
-const express = require('express');
+import express from 'express';
+import router from './app/router.js';
+import cors from 'cors';
+import database from './database.js';
+
 const app = express();
-const router = require('./app/router');
-const cors = require('cors');
 
-const database = require('./database');
+dotenv.config();
 
-const PORT = process.env.PORT || 3500;
+database();
 
 // see it later
 app.use(cors());
@@ -16,14 +18,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // app.use(express.static('public'));
 
-// app.use((req, res, next) => {
-//     res.locals.currentUserId;
-//     next();
-// });
-
 app.use('/api', router);
+
+const PORT = process.env.PORT || 3500;
 
 app.listen(PORT, () => {
     console.log(`app : http://localhost:${PORT}`);
-    database;
 });
